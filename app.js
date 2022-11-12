@@ -27,11 +27,11 @@ app.use('/api', usersRouter);
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, () =>
-    console.log(`Server running on http://localhost:${PORT}`)
-)
-// mongoose.connect(process.env.MONGO_URL)
-//     .then(() =>
-//     ).catch((err) =>
-//         console.log(err.message)
-//     )
+mongoose.connect(process.env.MONGO_URL)
+    .then(() =>
+        app.listen(PORT, () =>
+            console.log(`Server running on http://localhost:${PORT}`)
+        )
+    ).catch((err) =>
+        console.log(err.message)
+    )
