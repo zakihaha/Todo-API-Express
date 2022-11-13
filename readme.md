@@ -24,6 +24,7 @@
 - Delete all todos
 
 ## API Documentation
+Root URL: https://todos.osorateam.com/api
 ### Register
 Register user to application.
 * #### URL
