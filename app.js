@@ -14,12 +14,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
-app.use(cors({
-    origin: 'http://localhost:8081'
-}));
 
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send('API for Todo App by Muh Zaki Choiruddin');
 });
 
 app.use('/api/todos', verifyToken, todosRouter);

@@ -19,6 +19,12 @@ const show = async (req, res) => {
     try {
         const todo = await Todo.findById(req.params.id)
 
+        if (!todo) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: 'Todo not found'
+            })
+        }
+
         if (todo.user != req.user._id) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: 'unauthorized'
@@ -54,13 +60,19 @@ const store = async (req, res) => {
 const update = async (req, res) => {
     try {
         const todo = await Todo.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        
+
+        if (!todo) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: 'Todo not found'
+            })
+        }
+
         if (todo.user != req.user._id) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: 'unauthorized'
             })
         }
-        
+
         res.status(StatusCodes.OK).json({
             data: todo
         })
@@ -75,12 +87,18 @@ const destroy = async (req, res) => {
     try {
         const todo = await Todo.findByIdAndDelete(req.params.id)
         
+        if (!todo) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: 'Todo not found'
+            })
+        }
+
         if (todo.user != req.user._id) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: 'unauthorized'
             })
         }
-        
+
         res.status(StatusCodes.OK).json({
             data: todo
         })
@@ -108,12 +126,18 @@ const changeStatus = async (req, res) => {
     try {
         const todo = await Todo.findById(req.params.id)
         
+        if (!todo) {
+            return res.status(StatusCodes.NOT_FOUND).json({
+                message: 'Todo not found'
+            })
+        }
+        
         if (todo.user != req.user._id) {
             return res.status(StatusCodes.UNAUTHORIZED).json({
                 message: 'unauthorized'
             })
         }
-        
+
         todo.completed = !todo.completed
         await todo.save()
         res.status(StatusCodes.OK).json({
